@@ -85,7 +85,14 @@ function easeOutCubic(t) {
 }
 
 function showPopup(prize) {
-  popupMessage.textContent = `🎉 Congratulations! You won: ${prize}`;
+  let message = "";
+  if (prize === "Better Luck Next Time 😢") {
+    message = `😢 Better Luck Next Time!`;
+  } else {
+    message = `🎉 Congratulations! You won: ${prize}`;
+  }
+  
+  popupMessage.textContent = message;
   popup.style.display = "block";
   overlay.style.display = "block";
 
@@ -95,7 +102,3 @@ function showPopup(prize) {
   }, 4000);
 }
 
-document.querySelector(".close-button").onclick = () => {
-  popup.style.display = "none";
-  overlay.style.display = "none";
-};
