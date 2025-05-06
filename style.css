@@ -41,7 +41,6 @@ body {
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.6));
 }
 
-
 .spin-button {
   margin-top: 30px;
   padding: 12px 25px;
@@ -74,11 +73,11 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #ffffff;
+  background: linear-gradient(45deg, #ff7f50, #ff1493, #ff6347, #32cd32); /* Gradient Background */
   padding: 30px 50px;
   border-radius: 20px;
   text-align: center;
-  color: #222;
+  color: #fff; /* White text color */
   display: none;
   z-index: 100;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
@@ -101,6 +100,7 @@ body {
 .popup-content {
   font-size: 24px;
   font-weight: bold;
+  margin: 10px 0;
 }
 
 .close-button {
@@ -110,4 +110,17 @@ body {
   font-size: 24px;
   cursor: pointer;
   color: #d33;
+}
+
+.popup .popup-content {
+  font-size: 20px; /* Text size for message */
+  padding: 10px;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.5); /* Slightly dark background for text */
+  margin-bottom: 20px;
+}
+
+.popup .popup-content p {
+  color: #ffeb3b; /* Yellowish color for text */
 }
