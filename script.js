@@ -23,7 +23,6 @@ const arc = Math.PI * 2 / prizes.length;
 function drawWheel() {
   for (let i = 0; i < prizes.length; i++) {
     let angle = startAngle + i * arc;
-
     ctx.fillStyle = colors[i];
     ctx.beginPath();
     ctx.moveTo(200, 200);
@@ -37,7 +36,7 @@ function drawWheel() {
     ctx.fillStyle = "#fff";
     ctx.font = "bold 20px Arial";
     ctx.textAlign = "right";
-    ctx.fillText(i + 1, 170, 10); // Number on slice
+    ctx.fillText(i + 1, 170, 10); // Slice number
     ctx.restore();
   }
 }
@@ -51,8 +50,7 @@ function spinWheel() {
   if (isSpinning) return;
 
   isSpinning = true;
-  const spins = Math.floor(Math.random() * 91) + 10;  // Spins between 10 and 100
-
+  const spins = Math.floor(Math.random() * 41) + 10;  // Spins between 10 and 50
   const stopSlice = Math.floor(Math.random() * prizes.length);
   const degreesPerSlice = 360 / prizes.length;
   const targetRotation = 360 * spins + (360 - stopSlice * degreesPerSlice - degreesPerSlice / 2);
@@ -79,6 +77,8 @@ function spinWheel() {
 
   requestAnimationFrame(animate);
 }
+
+
 
 function easeOutCubic(t) {
   return (--t) * t * t + 1;
