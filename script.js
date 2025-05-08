@@ -1,38 +1,32 @@
-const wheel = document.getElementById("wheel");
-const prizes = ["$100", "$500", "Spin Again", "Nothing", "Gift Card", "Free Pizza"];
-const colors = ["#FFD700", "#ADFF2F", "#FF6347", "#87CEEB", "#FF69B4", "#40E0D0"];
-const total = prizes.length;
-
-function createSlices() {
-  for (let i = 0; i < total; i++) {
-    const slice = document.createElement("div");
-    slice.className = "slice";
-    slice.style.background = colors[i];
-    slice.style.transform = `rotate(${i * (360 / total)}deg)`;
-    slice.innerText = prizes[i];
-    wheel.appendChild(slice);
-  }
-}
-
 let currentRotation = 0;
 
-function spin() {
-  const spinDeg = 360 * 5 + Math.floor(Math.random() * 360);
-  currentRotation += spinDeg;
+function spinWheel() {
+  const wheel = document.getElementById('wheel');
+  const randomDegree = Math.floor(Math.random() * 360) + 3600; // 3600 for at least 10 full spins
+  const spinDuration = 4000; // 4 seconds for the spin
+
+  wheel.style.transition = `transform ${spinDuration}ms ease-out`;
+  currentRotation += randomDegree;
   wheel.style.transform = `rotate(${currentRotation}deg)`;
 
-  const sliceDeg = 360 / total;
-  const normalized = (360 - (currentRotation % 360)) % 360;
-  const index = Math.floor(normalized / sliceDeg);
-
+  // Show popup when the wheel stops spinning
   setTimeout(() => {
-    document.getElementById("result").innerText = `You got: ${prizes[index]}`;
-    document.getElementById("popup").style.display = "block";
-  }, 4000);
+    showPopup();
+  }, spinDuration);
 }
 
-function closePopup() {
-  document.getElementById("popup").style.display = "none";
-}
+function showPopup() {
+  const popup = document.getElementById('popup');
+  const overlay = document.querySelector('.overlay');
+  const popupMessage = document.getElementById('popup-message');
+  popupMessage.innerText = "Congratulations, you won Prize 3!";
+  popup.style.display = 'block';
+  overlay.style.display = 'block';
 
-createSlices();
+  // Close button functionality
+  const closeButton = document.querySelector('.close-button');
+  closeButton.addEventListener('click', () => {
+    popup.style.display = 'none';
+    overlay.style.display = 'none';
+  });
+}
