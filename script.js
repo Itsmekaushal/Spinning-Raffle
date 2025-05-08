@@ -1,23 +1,34 @@
-let rotation = 0;
+const wheel = document.getElementById('wheel');
+const popup = document.getElementById('popup');
+const popupText = document.getElementById('popup-text');
+const popupImg = document.getElementById('popup-img');
+
+const prizes = [
+  { text: "iPhone", image: "images/iphone.png" },
+  { text: "Watch", image: "images/watch.png" },
+  { text: "Laptop", image: "images/laptop.png" },
+  { text: "Gift Card", image: "images/giftcard.png" },
+  { text: "Headphones", image: "images/headphones.png" },
+  { text: "Try Again", image: "images/nothing.png" }
+];
+
+let deg = 0;
 
 function spinWheel() {
-  // Generate a random number for rotation between 0 and 360
-  let randomRotation = Math.floor(Math.random() * 360) + 1800;  // Ensure it spins multiple times
+  const randomIndex = Math.floor(Math.random() * prizes.length);
+  const anglePerSlice = 360 / prizes.length;
+  const rotation = 360 * 5 + (360 - randomIndex * anglePerSlice - anglePerSlice / 2);
 
-  // Apply the random rotation to the wheel
-  document.getElementById('wheel').style.transition = "transform 4s ease-out";
-  document.getElementById('wheel').style.transform = `rotate(${randomRotation}deg)`;
+  deg = rotation;
+  wheel.style.transform = `rotate(${deg}deg)`;
 
-  // Show the popup after the spin is complete
   setTimeout(() => {
-    document.querySelector('.overlay').style.display = 'block';
-    document.querySelector('#popup').style.display = 'block';
-    document.querySelector('#popup-message').textContent = "You won!";  // Customize message
-  }, 4000);  // Popup appears after 4 seconds (end of rotation)
+    popup.style.display = "block";
+    popupText.textContent = `You won: ${prizes[randomIndex].text}`;
+    popupImg.src = prizes[randomIndex].image;
+  }, 4000);
 }
 
-// Close the popup
-document.querySelector('.close-button').addEventListener('click', () => {
-  document.querySelector('.overlay').style.display = 'none';
-  document.querySelector('#popup').style.display = 'none';
-});
+function closePopup() {
+  popup.style.display = "none";
+}
