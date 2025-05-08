@@ -15,18 +15,16 @@ const prizes = [
 let currentRotation = 0;
 
 function spinWheel() {
-  const randomIndex = Math.floor(Math.random() * prizes.length);
-  const anglePerSlice = 360 / prizes.length;
-  const extraSpins = 5; // for visual spin effect
-  const angle = (360 - (randomIndex * anglePerSlice)) + (360 * extraSpins);
+  const index = Math.floor(Math.random() * prizes.length);
+  const angle = 360 / prizes.length;
+  const rotateTo = (360 * 5) + (360 - index * angle) - angle / 2;
 
-  currentRotation += angle;
-
+  currentRotation += rotateTo;
   wheel.style.transform = `rotate(${currentRotation}deg)`;
 
   setTimeout(() => {
-    popupText.innerText = `You won: ${prizes[randomIndex].name}`;
-    popupImg.src = prizes[randomIndex].img;
+    popupText.innerText = `You won: ${prizes[index].name}`;
+    popupImg.src = prizes[index].img;
     popup.style.display = "block";
   }, 4000);
 }
