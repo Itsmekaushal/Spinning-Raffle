@@ -1,34 +1,33 @@
-const wheel = document.getElementById('wheel');
+const segments = document.querySelectorAll('.segment');
 const popup = document.getElementById('popup');
-const popupText = document.getElementById('popup-text');
-const popupImg = document.getElementById('popup-img');
+const popupMessage = document.getElementById('popup-message');
+const popupImage = document.getElementById('popup-image');
+const overlay = document.querySelector('.overlay');
 
 const prizes = [
-  { text: "iPhone", image: "images/iphone.png" },
-  { text: "Watch", image: "images/watch.png" },
-  { text: "Laptop", image: "images/laptop.png" },
-  { text: "Gift Card", image: "images/giftcard.png" },
-  { text: "Headphones", image: "images/headphones.png" },
-  { text: "Try Again", image: "images/nothing.png" }
+  { name: 'iPhone', image: 'iphone.png' },
+  { name: 'Laptop', image: 'laptop.png' },
+  { name: 'Headphones', image: 'headphones.png' },
+  { name: 'Smart Watch', image: 'watch.png' },
+  { name: 'Tablet', image: 'tablet.png' },
+  { name: 'Gift', image: 'gift.png' }
 ];
 
-let deg = 0;
-
 function spinWheel() {
-  const randomIndex = Math.floor(Math.random() * prizes.length);
-  const anglePerSlice = 360 / prizes.length;
-  const rotation = 360 * 5 + (360 - randomIndex * anglePerSlice - anglePerSlice / 2);
+  const randomDeg = Math.floor(Math.random() * 360) + 3600; // Random spin angle
+  const prizeIndex = Math.floor((randomDeg % 360) / 60); // Divide 360 into 6 segments
+  const prize = prizes[prizeIndex];
 
-  deg = rotation;
-  wheel.style.transform = `rotate(${deg}deg)`;
+  document.querySelector('.wheel').style.transition = 'transform 3s ease-out';
+  document.querySelector('.wheel').style.transform = `rotate(${randomDeg}deg)`;
 
-  setTimeout(() => {
-    popup.style.display = "block";
-    popupText.textContent = `You won: ${prizes[randomIndex].text}`;
-    popupImg.src = prizes[randomIndex].image;
-  }, 4000);
+  overlay.style.display = 'block';
+  popup.style.display = 'block';
+  popupMessage.innerText = `Congratulations! You won a ${prize.name}!`;
+  popupImage.src = prize.image;
 }
 
-function closePopup() {
-  popup.style.display = "none";
-}
+document.querySelector('.close-button').addEventListener('click', () => {
+  popup.style.display = 'none';
+  overlay.style.display = 'none';
+});
