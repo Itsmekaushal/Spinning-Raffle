@@ -3,29 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Spin the Wheel</title>
+  <title>Spin Wheel (No Canvas)</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <h1 class="title">🎁 Spin the Wheel 🎁</h1>
+  <h1 class="title">Spin the Wheel</h1>
 
   <div class="wheel-container">
-    <div class="wheel-wrapper">
-      <canvas id="wheel" width="400" height="400"></canvas>
-      <div class="pointer"></div>
+    <div class="wheel" id="wheel">
+      <div class="segment" style="--i:0;"><img src="images/iphone.png" /><span>iPhone</span></div>
+      <div class="segment" style="--i:1;"><img src="images/watch.png" /><span>Watch</span></div>
+      <div class="segment" style="--i:2;"><img src="images/laptop.png" /><span>Laptop</span></div>
+      <div class="segment" style="--i:3;"><img src="images/giftcard.png" /><span>Gift Card</span></div>
+      <div class="segment" style="--i:4;"><img src="images/headphones.png" /><span>Headphones</span></div>
+      <div class="segment" style="--i:5;"><img src="images/nothing.png" /><span>Try Again</span></div>
     </div>
-    <button class="spin-button" onclick="spinWheel()">SPIN</button>
+    <div class="pointer"></div>
   </div>
 
-  <div class="overlay" id="overlay"></div>
+  <button onclick="spinWheel()" class="spin-button">SPIN</button>
 
   <div class="popup" id="popup">
-    <div class="popup-content">
-      <span class="close-button" onclick="closePopup()">&times;</span>
-      <p id="popup-message"></p>
-      <img id="popup-image" src="" alt="Prize Image" />
-    </div>
+    <p id="popup-text"></p>
+    <img id="popup-img" src="" alt="" />
+    <button onclick="closePopup()">Close</button>
   </div>
 
   <script src="script.js"></script>
