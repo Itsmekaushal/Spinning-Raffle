@@ -2,24 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Spin Wheel</title>
+  <title>Spin the Wheel</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="wheel-container">
-  <div class="pointer"></div>
-  <div class="wheel" id="wheel">
-    <div class="slice" style="--i: 0; background: #ff9999"><span>1</span></div>
-    <div class="slice" style="--i: 1; background: #99ccff"><span>2</span></div>
-    <div class="slice" style="--i: 2; background: #99ff99"><span>3</span></div>
-    <div class="slice" style="--i: 3; background: #ffff99"><span>4</span></div>
-    <div class="slice" style="--i: 4; background: #cc99ff"><span>5</span></div>
-    <div class="slice" style="--i: 5; background: #ffcc99"><span>6</span></div>
-  </div>
-  <button onclick="spinWheel()">Spin</button>
-</div>
+  <h1 class="title">🎉 Spin the Wheel 🎉</h1>
 
-<script src="script.js"></script>
+  <div class="wheel-container">
+    <div class="wheel-wrapper">
+      <div class="wheel" id="wheel">
+        <!-- Each segment contains an image and prize name -->
+        <div class="wheel-segment">
+          <img src="images/prize1.png" alt="Prize 1">
+          <span>Prize 1</span>
+        </div>
+        <div class="wheel-segment">
+          <img src="images/prize2.png" alt="Prize 2">
+          <span>Prize 2</span>
+        </div>
+        <div class="wheel-segment">
+          <img src="images/prize3.png" alt="Prize 3">
+          <span>Prize 3</span>
+        </div>
+        <div class="wheel-segment">
+          <img src="images/prize4.png" alt="Prize 4">
+          <span>Prize 4</span>
+        </div>
+        <div class="wheel-segment">
+          <img src="images/prize5.png" alt="Prize 5">
+          <span>Prize 5</span>
+        </div>
+        <div class="wheel-segment">
+          <img src="images/prize6.png" alt="Prize 6">
+          <span>Prize 6</span>
+        </div>
+      </div>
+      <div class="pointer"></div>
+    </div>
+    <button class="spin-button" onclick="spinWheel()">SPIN</button>
+  </div>
+
+  <div class="overlay"></div>
+
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <span class="close-button">&times;</span>
+      <p id="popup-message"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
