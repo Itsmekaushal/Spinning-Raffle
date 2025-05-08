@@ -1,104 +1,90 @@
 const canvas = document.getElementById("wheel");
 const ctx = canvas.getContext("2d");
-const popup = document.getElementById("popup");
-const overlay = document.querySelector(".overlay");
-const popupMessage = document.getElementById("popup-message");
 
 const prizes = [
-  "₹500 Amazon Voucher",
-  "Free Movie Ticket",
-  "Bluetooth Earbuds",
-  "1-Month Netflix",
-  "Free Pizza Coupon",
-  "Smart Watch",
-  "Mystery Gift Box",
-  "Better Luck Next Time 😢"
+  { name: "Phone", img: "images/phone.png" },
+  { name: "Headphones", img: "images/headphones.png" },
+  { name: "Watch", img: "images/watch.png" },
+  { name: "Camera", img: "images/camera.png" },
+  { name: "Gift Card", img: "images/giftcard.png" },
+  { name: "Laptop", img: "images/laptop.png" }
 ];
 
-const colors = ["#ff4d4d", "#ffcc00", "#4dd2ff", "#33cc33", "#ff4d4d", "#ffcc00", "#4dd2ff", "#33cc33"];
-
-let startAngle = 0;
-const arc = Math.PI * 2 / prizes.length;
+const totalSegments = prizes.length;
+const segmentAngle = 2 * Math.PI / totalSegments;
+let currentAngle = 0;
+let isSpinning = false;
+let spinAngle = 0;
 
 function drawWheel() {
-  for (let i = 0; i < prizes.length; i++) {
-    let angle = startAngle + i * arc;
-    ctx.fillStyle = colors[i];
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  prizes.forEach((prize, i) => {
+    const angle = i * segmentAngle;
+
     ctx.beginPath();
     ctx.moveTo(200, 200);
-    ctx.arc(200, 200, 200, angle, angle + arc, false);
-    ctx.lineTo(200, 200);
+    ctx.arc(200, 200, 200, angle, angle + segmentAngle);
+    ctx.fillStyle = i % 2 === 0 ? "#ff6f61" : "#fbd14b";
     ctx.fill();
-
     ctx.save();
+
     ctx.translate(200, 200);
-    ctx.rotate(angle + arc / 2);
-    ctx.fillStyle = "#fff";
-    ctx.font = "bold 20px Arial";
-    ctx.textAlign = "right";
-    ctx.fillText(i + 1, 170, 10); // Slice number
+    ctx.rotate(angle + segmentAngle / 2);
+    const img = new Image();
+    img.src = prize.img;
+    img.onload = () => ctx.drawImage(img, 120, -25, 40, 40);
     ctx.restore();
-  }
+  });
 }
-
-drawWheel();
-
-let rotation = 0;
-let isSpinning = false;
 
 function spinWheel() {
   if (isSpinning) return;
 
   isSpinning = true;
-  const spins = Math.floor(Math.random() * 41) + 10;  // Spins between 10 and 50
-  const stopSlice = Math.floor(Math.random() * prizes.length);
-  const degreesPerSlice = 360 / prizes.length;
-  const targetRotation = 360 * spins + (360 - stopSlice * degreesPerSlice - degreesPerSlice / 2);
+  const spins = 10 + Math.floor(Math.random() * 5);
+  const spinDeg = spins * 360 + Math.floor(Math.random() * 360);
+  const spinRad = (spinDeg * Math.PI) / 180;
 
-  let duration = 5000;
-  let start = null;
+  let duration = 3000;
+  const start = performance.now();
 
-  function animate(timestamp) {
-    if (!start) start = timestamp;
-    const progress = timestamp - start;
-    const easedProgress = easeOutCubic(Math.min(progress / duration, 1));
-    const current = rotation + easedProgress * (targetRotation - rotation);
+  function animate(time) {
+    const elapsed = time - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const easeOut = 1 - Math.pow(1 - progress, 4);
+    currentAngle = spinRad * easeOut;
 
-    canvas.style.transform = `rotate(${current}deg)`;
+    ctx.save();
+    ctx.translate(200, 200);
+    ctx.rotate(currentAngle);
+    ctx.translate(-200, -200);
+    drawWheel();
+    ctx.restore();
 
-    if (progress < duration) {
+    if (progress < 1) {
       requestAnimationFrame(animate);
     } else {
-      rotation = targetRotation % 360;
-      showPopup(prizes[stopSlice]);
       isSpinning = false;
+      const winningIndex = totalSegments - Math.floor(((currentAngle % (2 * Math.PI)) / segmentAngle)) - 1;
+      showPopup(prizes[winningIndex]);
     }
   }
 
   requestAnimationFrame(animate);
 }
 
-
-
-function easeOutCubic(t) {
-  return (--t) * t * t + 1;
-}
-
 function showPopup(prize) {
-  let message = "";
-  if (prize === "Better Luck Next Time 😢") {
-    message = `😢 Better Luck Next Time!`;
-  } else {
-    message = `🎉 Congratulations! You won: ${prize}`;
-  }
-  
-  popupMessage.textContent = message;
+  document.querySelector(".overlay").style.display = "block";
+  const popup = document.getElementById("popup");
+  const popupMessage = document.getElementById("popup-message");
+  popupMessage.innerHTML = `<img src="${prize.img}" width="100"><br><strong>You won: ${prize.name}!</strong>`;
   popup.style.display = "block";
-  overlay.style.display = "block";
-
-  setTimeout(() => {
-    popup.style.display = "none";
-    overlay.style.display = "none";
-  }, 4000);
 }
 
+document.querySelector(".close-button").onclick = function () {
+  document.getElementById("popup").style.display = "none";
+  document.querySelector(".overlay").style.display = "none";
+};
+
+drawWheel();
