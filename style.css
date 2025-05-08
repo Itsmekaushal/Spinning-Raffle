@@ -1,91 +1,82 @@
 body {
-  font-family: 'Arial', sans-serif;
-  background: #121212;
+  font-family: Arial, sans-serif;
+  background: #111;
   color: white;
   text-align: center;
-  margin: 0;
-  padding: 0;
 }
 
 .title {
+  margin: 30px 0;
   font-size: 2.5rem;
-  margin-top: 40px;
 }
 
 .wheel-container {
   position: relative;
-  margin: 50px auto;
   width: 400px;
   height: 400px;
+  margin: 0 auto;
 }
 
 .wheel {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 10px solid #fff;
+  border: 8px solid #fff;
   position: relative;
-  transform: rotate(0deg);
   transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+  overflow: hidden;
 }
 
 .slice {
+  position: absolute;
   width: 50%;
   height: 50%;
-  position: absolute;
-  top: 0;
+  top: 50%;
   left: 50%;
-  transform-origin: 0% 100%;
-  text-align: center;
+  transform-origin: 0% 0%;
 }
 
 .slice img {
-  width: 50px;
-  height: 50px;
-  margin-top: 20px;
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin: 10px auto 0;
 }
 
 .slice span {
   display: block;
-  margin-top: 10px;
-  color: #fff;
   font-size: 14px;
-  font-weight: bold;
+  margin-top: 5px;
 }
 
-.slice:nth-child(1) { transform: rotate(0deg); }
-.slice:nth-child(2) { transform: rotate(60deg); }
-.slice:nth-child(3) { transform: rotate(120deg); }
-.slice:nth-child(4) { transform: rotate(180deg); }
-.slice:nth-child(5) { transform: rotate(240deg); }
-.slice:nth-child(6) { transform: rotate(300deg); }
+.slice:nth-child(1) { transform: rotate(0deg)    translate(-100%, -100%); }
+.slice:nth-child(2) { transform: rotate(60deg)   translate(-100%, -100%); }
+.slice:nth-child(3) { transform: rotate(120deg)  translate(-100%, -100%); }
+.slice:nth-child(4) { transform: rotate(180deg)  translate(-100%, -100%); }
+.slice:nth-child(5) { transform: rotate(240deg)  translate(-100%, -100%); }
+.slice:nth-child(6) { transform: rotate(300deg)  translate(-100%, -100%); }
 
 .pointer {
   width: 0;
   height: 0;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
-  border-bottom: 30px solid gold;
+  border-bottom: 30px solid red;
   position: absolute;
-  top: -20px;
+  top: -25px;
   left: calc(50% - 20px);
-  z-index: 10;
+  z-index: 2;
 }
 
 .spin-button {
-  margin-top: 30px;
-  padding: 12px 30px;
-  font-size: 18px;
+  margin-top: 20px;
+  padding: 10px 25px;
+  font-size: 16px;
   background: #28a745;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s;
-}
-
-.spin-button:hover {
-  background: #218838;
 }
 
 .popup {
@@ -93,25 +84,23 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #222;
+  background: #333;
   padding: 30px;
   border-radius: 10px;
   display: none;
   z-index: 1000;
-  text-align: center;
-  color: #fff;
 }
 
 .popup img {
-  width: 100px;
+  width: 80px;
   margin-bottom: 10px;
 }
 
 .popup .close-button {
   position: absolute;
-  top: 10px;
-  right: 20px;
-  font-size: 24px;
-  color: #f33;
+  top: 5px;
+  right: 15px;
+  font-size: 22px;
   cursor: pointer;
+  color: red;
 }
