@@ -1,33 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Spin the Wheel</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prize Wheel</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <h1 class="title">Spin & Win</h1>
-
+  <h1 class="title">Spin the Wheel</h1>
   <div class="wheel-container">
     <div class="pointer"></div>
     <div class="wheel" id="wheel">
-      <div class="slice"><img src="images/iphone.png"><span>iPhone</span></div>
-      <div class="slice"><img src="images/laptop.png"><span>Laptop</span></div>
-      <div class="slice"><img src="images/watch.png"><span>Watch</span></div>
-      <div class="slice"><img src="images/headphones.png"><span>Headphones</span></div>
-      <div class="slice"><img src="images/camera.png"><span>Camera</span></div>
-      <div class="slice"><img src="images/voucher.png"><span>Gift Card</span></div>
+      <!-- Slices injected by JS -->
     </div>
-    <button class="spin-button" onclick="spinWheel()">SPIN</button>
   </div>
+  <button class="spin-button" onclick="spin()">Spin</button>
 
+  <div class="overlay" id="overlay"></div>
   <div class="popup" id="popup">
-    <div class="popup-content">
-      <span class="close-button" onclick="closePopup()">×</span>
-      <img id="popup-img" />
-      <p id="popup-text"></p>
-    </div>
+    <span class="close-button" onclick="closePopup()">&times;</span>
+    <div class="popup-content" id="result"></div>
   </div>
 
   <script src="script.js"></script>
