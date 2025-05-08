@@ -1,32 +1,23 @@
-let currentRotation = 0;
+let rotation = 0;
 
 function spinWheel() {
-  const wheel = document.getElementById('wheel');
-  const randomDegree = Math.floor(Math.random() * 360) + 3600; // 3600 for at least 10 full spins
-  const spinDuration = 4000; // 4 seconds for the spin
+  // Generate a random number for rotation between 0 and 360
+  let randomRotation = Math.floor(Math.random() * 360) + 1800;  // Ensure it spins multiple times
 
-  wheel.style.transition = `transform ${spinDuration}ms ease-out`;
-  currentRotation += randomDegree;
-  wheel.style.transform = `rotate(${currentRotation}deg)`;
+  // Apply the random rotation to the wheel
+  document.getElementById('wheel').style.transition = "transform 4s ease-out";
+  document.getElementById('wheel').style.transform = `rotate(${randomRotation}deg)`;
 
-  // Show popup when the wheel stops spinning
+  // Show the popup after the spin is complete
   setTimeout(() => {
-    showPopup();
-  }, spinDuration);
+    document.querySelector('.overlay').style.display = 'block';
+    document.querySelector('#popup').style.display = 'block';
+    document.querySelector('#popup-message').textContent = "You won!";  // Customize message
+  }, 4000);  // Popup appears after 4 seconds (end of rotation)
 }
 
-function showPopup() {
-  const popup = document.getElementById('popup');
-  const overlay = document.querySelector('.overlay');
-  const popupMessage = document.getElementById('popup-message');
-  popupMessage.innerText = "Congratulations, you won Prize 3!";
-  popup.style.display = 'block';
-  overlay.style.display = 'block';
-
-  // Close button functionality
-  const closeButton = document.querySelector('.close-button');
-  closeButton.addEventListener('click', () => {
-    popup.style.display = 'none';
-    overlay.style.display = 'none';
-  });
-}
+// Close the popup
+document.querySelector('.close-button').addEventListener('click', () => {
+  document.querySelector('.overlay').style.display = 'none';
+  document.querySelector('#popup').style.display = 'none';
+});
