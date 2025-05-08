@@ -7,19 +7,18 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1 class="title">Spin the Wheel</h1>
   <div class="wheel-container">
     <div class="pointer"></div>
     <div class="wheel" id="wheel">
-      <!-- Slices injected by JS -->
+      <!-- Slices will be added by JS -->
     </div>
   </div>
-  <button class="spin-button" onclick="spin()">Spin</button>
+  <button onclick="spin()">Spin</button>
 
   <div class="overlay" id="overlay"></div>
   <div class="popup" id="popup">
-    <span class="close-button" onclick="closePopup()">&times;</span>
-    <div class="popup-content" id="result"></div>
+    <span onclick="closePopup()" class="close-btn">&times;</span>
+    <p id="result"></p>
   </div>
 
   <script src="script.js"></script>
