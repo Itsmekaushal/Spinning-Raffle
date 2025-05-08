@@ -7,48 +7,29 @@
 </head>
 <body>
 
-  <h1 class="title">🎉 Spin the Wheel 🎉</h1>
+  <h1 class="title">🎁 Spin & Win 🎁</h1>
 
   <div class="wheel-container">
-    <div class="wheel">
-      <div class="segment">
-        <img src="iphone.png" alt="iPhone" class="image">
-        <span class="text">iPhone</span>
-      </div>
-      <div class="segment">
-        <img src="laptop.png" alt="Laptop" class="image">
-        <span class="text">Laptop</span>
-      </div>
-      <div class="segment">
-        <img src="headphones.png" alt="Headphones" class="image">
-        <span class="text">Headphones</span>
-      </div>
-      <div class="segment">
-        <img src="watch.png" alt="Smart Watch" class="image">
-        <span class="text">Smart Watch</span>
-      </div>
-      <div class="segment">
-        <img src="tablet.png" alt="Tablet" class="image">
-        <span class="text">Tablet</span>
-      </div>
-      <div class="segment">
-        <img src="gift.png" alt="Gift" class="image">
-        <span class="text">Gift</span>
-      </div>
+    <div class="wheel" id="wheel">
+      <div class="slice"><img src="images/iphone.png"><span>iPhone</span></div>
+      <div class="slice"><img src="images/laptop.png"><span>Laptop</span></div>
+      <div class="slice"><img src="images/watch.png"><span>Smart Watch</span></div>
+      <div class="slice"><img src="images/headphones.png"><span>Headphones</span></div>
+      <div class="slice"><img src="images/camera.png"><span>Camera</span></div>
+      <div class="slice"><img src="images/voucher.png"><span>Gift Card</span></div>
     </div>
+    <div class="pointer"></div>
     <button class="spin-button" onclick="spinWheel()">SPIN</button>
   </div>
 
-  <div class="overlay"></div>
-
   <div class="popup" id="popup">
     <div class="popup-content">
-      <span class="close-button">&times;</span>
-      <p id="popup-message"></p>
-      <img id="popup-image" src="" alt="Prize Image" class="popup-image">
+      <span class="close-button" onclick="closePopup()">×</span>
+      <img id="popup-img" />
+      <p id="popup-text"></p>
     </div>
   </div>
 
   <script src="script.js"></script>
 </body>
-    </html>
+</html>
