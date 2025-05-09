@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Spin Wheel (No Canvas)</title>
+  <title>Spin Wheel (Pointer Spin)</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -19,7 +19,9 @@
       <div class="segment" style="--i:4;"><img src="images/headphones.png" /><span>Headphones</span></div>
       <div class="segment" style="--i:5;"><img src="images/nothing.png" /><span>Try Again</span></div>
     </div>
-    <div class="pointer"></div>
+    <div class="pointer-container" id="pointer-container">
+      <div class="pointer"></div>
+    </div>
   </div>
 
   <button onclick="spinWheel()" class="spin-button">SPIN</button>
