@@ -12,21 +12,37 @@ const prizes = [
   { text: "Try Again", image: "images/nothing.png" }
 ];
 
-const anglePerSegment = 360 / prizes.length;
 let currentRotation = 0;
 
 function spinWheel() {
-  const randomSpin = Math.floor(Math.random() * 360);
+  const anglePerSlice = 360 / prizes.length;
+
+  // Generate random prize index
+  const randomIndex = Math.floor(Math.random() * prizes.length);
+  console.log("Random Index:", randomIndex);
+
+  // Calculate total rotation
   const fullRotation = 5 * 360;
-  const finalAngle = currentRotation + fullRotation + randomSpin;
+  const prizeAngle = (prizes.length - randomIndex) * anglePerSlice;
+  const totalRotation = fullRotation + prizeAngle;
 
-  pointerContainer.style.transform = `rotate(${finalAngle}deg)`;
-  currentRotation = finalAngle;
+  // Rotate the wheel
+  pointerContainer.style.transition = 'transform 4s ease-out';
+  pointerContainer.style.transform = `rotate(${currentRotation + totalRotation}deg)`;
 
+  currentRotation += totalRotation;
+
+  // After spin, show popup
   setTimeout(() => {
-    const normalizedAngle = finalAngle % 360;
-    const index = Math.floor((360 - normalizedAngle + anglePerSegment / 2) % 360 / anglePerSegment);
+    const normalizedAngle = currentRotation % 360;
+    console.log("Normalized Angle:", normalizedAngle);
+
+    let index = Math.floor(normalizedAngle / anglePerSlice);
+    index = (prizes.length - index) % prizes.length;
+    console.log("Calculated Index:", index);
+
     const prize = prizes[index];
+    console.log("Selected Prize:", prize);
 
     popup.style.display = "block";
     popupText.textContent = `You won: ${prize.text}`;
