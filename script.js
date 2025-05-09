@@ -1,4 +1,4 @@
-const wheel = document.getElementById('wheel');
+const pointerContainer = document.getElementById('pointer-container');
 const popup = document.getElementById('popup');
 const popupText = document.getElementById('popup-text');
 const popupImg = document.getElementById('popup-img');
@@ -16,23 +16,26 @@ let currentRotation = 0;
 
 function spinWheel() {
   const anglePerSlice = 360 / prizes.length;
+
   const randomIndex = Math.floor(Math.random() * prizes.length);
 
-  const fullRotation = 5 * 360;
-  const prizeAngle = randomIndex * anglePerSlice + anglePerSlice / 2;
-  const totalRotation = fullRotation - prizeAngle;
+  // Rotate pointer to a random prize location
+  const fullRotation = 5 * 360; // Full 5 turns for excitement
+  const prizeAngle = randomIndex * anglePerSlice + anglePerSlice / 2; // Align to center of slice
+  const totalRotation = fullRotation + prizeAngle;
 
-  wheel.style.transition = 'transform 4s ease-out';
-  wheel.style.transform = `rotate(${currentRotation + totalRotation}deg)`;
+  pointerContainer.style.transition = 'transform 4s ease-out';
+  pointerContainer.style.transform = `rotate(${currentRotation + totalRotation}deg)`;
 
   currentRotation += totalRotation;
 
+  // After spin, show popup
   setTimeout(() => {
-    const normalizedAngle = (currentRotation % 360 + 360) % 360;
-    const index = Math.floor((normalizedAngle + anglePerSlice / 2) % 360 / anglePerSlice);
+    const normalizedAngle = (currentRotation % 360 + 360) % 360;  // Normalize the angle
+    const index = Math.floor((normalizedAngle + anglePerSlice / 2) % 360 / anglePerSlice); // Calculate the prize index
 
-    const prize = prizes[index];
-    popup.style.display = "block";
+    const prize = prizes[index]; // Get the prize based on the index
+    popup.style.display = "block"; // Show the popup
     popupText.textContent = `You won: ${prize.text}`;
     popupImg.src = prize.image;
   }, 4000);
