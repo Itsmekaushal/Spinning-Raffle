@@ -49,6 +49,7 @@ body {
 .segment span {
   color: #fff;
   font-size: 0.8em;
+  text-align: center;
 }
 
 .pointer-container {
@@ -59,6 +60,7 @@ body {
   left: 0;
   transition: transform 4s ease-out;
   transform-origin: 50% 50%;
+  transform: rotate(120deg); /* iPhone segment is at --i:2 = 120deg */
 }
 
 .pointer {
@@ -70,9 +72,8 @@ body {
   height: 0;
   border-left: 25px solid transparent;
   border-right: 25px solid transparent;
-  border-top: 30px solid red; /* Head of the arrow pointing down into the wheel */
+  border-top: 30px solid red;
 }
-
 
 .spin-button {
   margin-top: 30px;
