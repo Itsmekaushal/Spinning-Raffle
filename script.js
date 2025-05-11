@@ -4,24 +4,21 @@ const popupText = document.getElementById('popup-text');
 const popupImg = document.getElementById('popup-img');
 
 const prizes = [
-  { text: "Headphones", image: "images/headphones.png" }, // position 0
-  { text: "Gift Card", image: "images/giftcard.png" },     // position 1
-  { text: "Laptop", image: "images/laptop.png" },          // position 2
-  { text: "Watch", image: "images/watch.png" },            // position 3
-  { text: "iPhone", image: "images/iphone.png" },          // position 4
-  { text: "Try Again", image: "images/nothing.png" }       // position 5
+  { text: "Headphones", image: "images/headphones.png" },
+  { text: "Try Again", image: "images/nothing.png" },
+  { text: "iPhone", image: "images/iphone.png" },
+  { text: "Watch", image: "images/watch.png" },
+  { text: "Laptop", image: "images/laptop.png" },
+  { text: "Gift Card", image: "images/giftcard.png" }
 ];
 
 let currentRotation = 0;
 
 function spinWheel() {
   const anglePerSlice = 360 / prizes.length;
-
   const randomIndex = Math.floor(Math.random() * prizes.length);
-
-  // Rotate pointer to a random prize location
-  const fullRotation = 5 * 360; // Full 5 turns for excitement
-  const prizeAngle = randomIndex * anglePerSlice + anglePerSlice / 2; // Align to center of slice
+  const fullRotation = 5 * 360;
+  const prizeAngle = randomIndex * anglePerSlice + anglePerSlice / 2;
   const totalRotation = fullRotation + prizeAngle;
 
   pointerContainer.style.transition = 'transform 4s ease-out';
@@ -29,16 +26,19 @@ function spinWheel() {
 
   currentRotation += totalRotation;
 
-  // After spin, show popup
   setTimeout(() => {
-    const normalizedAngle = (currentRotation % 360 + 360) % 360;  // Normalize the angle
-    const index = Math.floor((normalizedAngle + anglePerSlice / 2) % 360 / anglePerSlice); // Calculate the prize index
+    const normalizedAngle = ((currentRotation - 120) % 360 + 360) % 360; // Adjust this part if needed
+    const index = Math.floor(normalizedAngle / anglePerSlice); // Fix index calculation here
 
-    const prize = prizes[index]; // Get the prize based on the index
-    popup.style.display = "block"; // Show the popup
-    popupText.textContent = `You won: ${prize.text}`;
-    popupImg.src = prize.image;
+    const prize = prizes[index];
+    showPopup(prize);
   }, 4000);
+}
+
+function showPopup(prize) {
+  popup.style.display = "block";
+  popupText.textContent = `You won: ${prize.text}`;
+  popupImg.src = prize.image;
 }
 
 function closePopup() {
